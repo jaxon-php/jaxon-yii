@@ -5,7 +5,7 @@ namespace Jaxon\Yii;
 class View
 {
     protected static $data;
-    protected $yii;
+    protected $controller;
 
     public function __construct()
     {
@@ -13,7 +13,7 @@ class View
         {
             self::$data = array();
         }
-        $this->yii = \Yii::app()->controller;
+        $this->controller = \Yii::$app->controller;
     }
 
     /**
@@ -39,6 +39,6 @@ class View
      */
     public function render($template, array $data = array())
     {
-        return $this->yii->render($template, array_merge(self::$data, $data), true);
+        return $this->controller->render($template, array_merge(self::$data, $data), true);
     }
 }
