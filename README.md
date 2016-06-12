@@ -1,13 +1,13 @@
 Jaxon Library for Yii
 =============================
 
-This package integrates the Jaxon library into the Yii framework.
+This package integrates the Jaxon library into the Yii 2 framework.
 
 Features
 --------
 
-- Read Jaxon options from a file in Yii config format.
 - Automatically register Jaxon classes from a preset directory.
+- Read Jaxon options from a config file.
 
 Installation
 ------------
@@ -21,9 +21,20 @@ Add the following lines in the `composer.json` file, and run the `composer updat
 }
 ```
 
+Declare the Jaxon module in the `config/web.php` file.
+```php
+    'modules' => [
+        'jaxon' => [
+            'class' => 'Jaxon\Yii\Module',
+        ],
+    ],
+```
+
 Copy the content of the `config/` directory of this repo to the `config/` dir of the Yii application.
-Copy the content of the `modules/` directory of this repo to the `modules/` dir of the Yii application.
-This will install the Jaxon library for Yii, as well as the controller to process Jaxon requests and a default config file.
+Copy the content of the `controllers/` directory of this repo to the `controllers/` dir of the Yii application.
+This will install a controller to process Jaxon requests and a default config file.
+
+Update the routing to redirect post requests to `jaxon` to the above controller.
 
 Configuration
 ------------
@@ -74,9 +85,25 @@ Then it calls the `$jaxon->css()`, `$jaxon->js()` and `$jaxon->script()` functio
 
 ### The Jaxon classes
 
-The Jaxon classes of the application must all be located in the directory indicated by the `app.dir` option in the `jaxon.php` config file.
+The Jaxon classes must inherit from `\Jaxon\Framework\Controller`.
+They must all be located in the directory indicated by the `app.dir` option in the `jaxon.php` config file, by default `@app/jaxon`.
 If there is a namespace associated, the `app.namespace` option should be set accordingly.
 The `app.namespace` option must be explicitely set to `null`, `false` or an empty string if there is no namespace.
+
+This is a simple example of Jaxon class, located at `@app/jaxon/HelloWorld.php`.
+
+```php
+namespace Jaxon\App;
+
+class HelloWorld extends \Jaxon\Framework\Controller
+{
+    public function sayHello()
+    {
+        $this->response->assign('div2', 'innerHTML', 'Hello World!');
+        return $this->response;
+    }
+}
+```
 
 Contribute
 ----------
