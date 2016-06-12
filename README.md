@@ -30,8 +30,8 @@ Declare the Jaxon module in the `config/web.php` file.
     ],
 ```
 
-Copy the content of the `config/` directory of this repo to the `config/` dir of the Yii application.
-Copy the content of the `controllers/` directory of this repo to the `controllers/` dir of the Yii application.
+Copy the content of the `app/config/` directory of this repo to the `config/` dir of the Yii application.
+Copy the content of the `app/controllers/` directory of this repo to the `controllers/` dir of the Yii application.
 This will install a controller to process Jaxon requests and a default config file.
 
 Update the routing to redirect post requests to `jaxon` to the above controller.
