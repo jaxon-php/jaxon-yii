@@ -1,20 +1,20 @@
 {
-    "name": "lagdo/jaxon-yii",
+    "name": "jaxon-php/jaxon-yii",
     "type": "library",
     "description": "Jaxon library integration for the Yii Framework",
     "authors": [
         {"name": "Thierry Feuzeu"}
     ],
-    "homepage": "https://github.com/lagdo/jaxon-yii",
+    "homepage": "https://github.com/jaxon-php/jaxon-yii",
     "license": "BSD-2-Clause",
     "keywords": ["Jaxon", "Xajax", "Ajax", "PHP", "Framework", "Yii"],
     "support": {
-        "issues": "https://github.com/lagdo/jaxon-yii/issues",
-        "source": "https://github.com/lagdo/jaxon-yii"
+        "issues": "https://github.com/jaxon-php/jaxon-yii/issues",
+        "source": "https://github.com/jaxon-php/jaxon-yii"
     },
     "require": {
-        "lagdo/jaxon-core": "dev-master",
-        "lagdo/jaxon-framework": "dev-master"
+        "jaxon-php/jaxon-core": "dev-master",
+        "jaxon-php/jaxon-framework": "dev-master"
     },
     "autoload": {
         "psr-4": {

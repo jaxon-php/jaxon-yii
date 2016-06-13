@@ -15,9 +15,9 @@ Installation
 Add the following lines in the `composer.json` file, and run the `composer update` command.
 ```json
 "require": {
-    "lagdo/jaxon-core": "dev-master",
-    "lagdo/jaxon-framework": "dev-master",
-    "lagdo/jaxon-yii": "dev-master"
+    "jaxon-php/jaxon-core": "dev-master",
+    "jaxon-php/jaxon-framework": "dev-master",
+    "jaxon-php/jaxon-yii": "dev-master"
 }
 ```
 
@@ -108,8 +108,8 @@ class HelloWorld extends \Jaxon\Framework\Controller
 Contribute
 ----------
 
-- Issue Tracker: github.com/lagdo/jaxon-yii/issues
-- Source Code: github.com/lagdo/jaxon-yii
+- Issue Tracker: github.com/jaxon-php/jaxon-yii/issues
+- Source Code: github.com/jaxon-php/jaxon-yii
 
 License
 -------
