@@ -13,13 +13,13 @@ class Module extends \yii\base\Module
      */
     public function __construct()
     {
-        parent::__construct();
-
         // Initialise the properties inherited from JaxonTrait.
         $this->jaxon = \Jaxon\Jaxon::getInstance();
         $this->validator = \Jaxon\Utils\Container::getInstance()->getValidator();
         $this->response = new \Jaxon\Yii\Response();
         $this->view = new \Jaxon\Yii\View();
+        // Call the parent contructor after member initialisation
+        parent::__construct('jaxon');
     }
 
     /**
