@@ -90,7 +90,9 @@ They must all be located in the directory indicated by the `app.dir` option in t
 If there is a namespace associated, the `app.namespace` option should be set accordingly.
 The `app.namespace` option must be explicitely set to `null`, `false` or an empty string if there is no namespace.
 
-This is a simple example of Jaxon class, located at `@app/jaxon/HelloWorld.php`.
+By default, the Jaxon classes are located in the `@app/jaxon` dir of the Yii application, and the associated namespace is `\Jaxon\App`.
+
+This is a simple example of a Jaxon class, located at `@app/jaxon/HelloWorld.php`.
 
 ```php
 namespace Jaxon\App;
