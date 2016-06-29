@@ -63,7 +63,7 @@ class Module extends \yii\base\Module
 
         $excluded = (array_key_exists('excluded', $appConfig) ? $appConfig['excluded'] : array());
         // The public methods of the Controller base class must not be exported to javascript
-        $controllerClass = new \ReflectionClass('\\Jaxon\\Framework\\Controller');
+        $controllerClass = new \ReflectionClass('\\Jaxon\\Yii\\Controller');
         foreach ($controllerClass->getMethods(\ReflectionMethod::IS_PUBLIC) as $xMethod)
         {
             $excluded[] = $xMethod->getShortName();
