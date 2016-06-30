@@ -72,7 +72,7 @@ class Module extends \yii\base\Module
         $this->jaxon->useComposerAutoloader();
         // Jaxon library default options
         $this->jaxon->setOptions(array(
-            'js.app.export' => !$isDebug,
+            'js.app.extern' => !$isDebug,
             'js.app.minify' => !$isDebug,
             'js.app.uri' => $baseUrl . 'jaxon/js',
             'js.app.dir' => $baseDir . 'jaxon/js',

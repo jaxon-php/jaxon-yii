@@ -31,7 +31,7 @@ return array(
             'app' => array(
                 // 'uri' => '',
                 // 'dir' => '',
-                // 'export' => true,
+                // 'extern' => true,
                 // 'minify' => true,
                 'options' => '',
             ),
