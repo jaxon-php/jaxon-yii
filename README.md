@@ -1,7 +1,7 @@
 Jaxon Library for Yii
 =============================
 
-This package integrates the Jaxon library into the Yii 2 framework.
+This package integrates the [Jaxon library](https://github.com/jaxon-php/jaxon-core) into the Yii 2 framework.
 
 Features
 --------
@@ -15,8 +15,6 @@ Installation
 Add the following lines in the `composer.json` file, and run the `composer update` command.
 ```json
 "require": {
-    "jaxon-php/jaxon-core": "~1.0",
-    "jaxon-php/jaxon-framework": "~1.0",
     "jaxon-php/jaxon-yii": "1.0.*"
 }
 ```
