@@ -15,8 +15,8 @@ class Module extends \yii\base\Module
     {
         // Initialise the properties inherited from JaxonTrait.
         $this->jaxon = jaxon();
-        $this->response = new \Jaxon\Yii\Response();
-        $this->view = new \Jaxon\Yii\View();
+        $this->response = new Response();
+        $this->view = new View();
         // Call the parent contructor after member initialisation
         parent::__construct('jaxon');
     }
