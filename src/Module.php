@@ -52,21 +52,7 @@ class Module extends \yii\base\Module
         $appPath = rtrim(\Yii::getAlias('@app'), '/') . '/';
         $baseUrl = rtrim(\Yii::getAlias('@web'), '/') . '/';
         $baseDir = rtrim(\Yii::getAlias('@webroot'), '/') . '/';
-        $config = require($appPath . 'config/jaxon.php');
-        $appConfig = array_key_exists('app', $config) ? $config['app'] : array();
-        $libConfig = array_key_exists('lib', $config) ? $config['lib'] : array();
 
-        // Jaxon application settings
-        $controllerDir = (array_key_exists('dir', $appConfig) ? $appConfig['dir'] : $appPath . 'jaxon');
-        $namespace = (array_key_exists('namespace', $appConfig) ? $appConfig['namespace'] : '\\Jaxon\\App');
-
-        $excluded = (array_key_exists('excluded', $appConfig) ? $appConfig['excluded'] : array());
-        // The public methods of the Controller base class must not be exported to javascript
-        $controllerClass = new \ReflectionClass('\\Jaxon\\Yii\\Controller');
-        foreach ($controllerClass->getMethods(\ReflectionMethod::IS_PUBLIC) as $xMethod)
-        {
-            $excluded[] = $xMethod->getShortName();
-        }
         // Use the Composer autoloader
         $this->jaxon->useComposerAutoloader();
         // Jaxon library default options
@@ -77,7 +63,24 @@ class Module extends \yii\base\Module
             'js.app.dir' => $baseDir . 'jaxon/js',
         ));
         // Jaxon library settings
-        \Jaxon\Config\Config::setOptions($libConfig);
+        $config = $this->jaxon->readConfigFile($appPath . 'config/jaxon.php', 'lib');
+
+        // Jaxon application settings
+        $appConfig = array();
+        if(array_key_exists('app', $config) && is_array($config['app']))
+        {
+            $appConfig = $config['app'];
+        }
+        $controllerDir = (array_key_exists('dir', $appConfig) ? $appConfig['dir'] : $appPath . 'jaxon');
+        $namespace = (array_key_exists('namespace', $appConfig) ? $appConfig['namespace'] : '\\Jaxon\\App');
+        $excluded = (array_key_exists('excluded', $appConfig) ? $appConfig['excluded'] : array());
+        // The public methods of the Controller base class must not be exported to javascript
+        $controllerClass = new \ReflectionClass('\\Jaxon\\Yii\\Controller');
+        foreach ($controllerClass->getMethods(\ReflectionMethod::IS_PUBLIC) as $xMethod)
+        {
+            $excluded[] = $xMethod->getShortName();
+        }
+
         // Set the request URI
         if(!$this->jaxon->getOption('core.request.uri'))
         {
