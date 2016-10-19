@@ -4,15 +4,12 @@ namespace Jaxon\Yii;
 
 class View
 {
-    protected static $data;
+    protected $data;
     protected $controller;
 
     public function __construct()
     {
-        if(!is_array(self::$data))
-        {
-            self::$data = array();
-        }
+        $this->data = array();
         $this->controller = \Yii::$app->controller;
     }
 
@@ -26,7 +23,7 @@ class View
      */
     public function share($name, $value)
     {
-        self::$data[$name] = $value;
+        $this->data[$name] = $value;
     }
 
     /**
@@ -45,6 +42,6 @@ class View
         {
             $template = '//' . $template;
         }
-        return trim($this->controller->renderPartial($template, array_merge(self::$data, $data), true), "\n");
+        return trim($this->controller->renderPartial($template, array_merge($this->data, $data), true), "\n");
     }
 }
