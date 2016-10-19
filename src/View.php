@@ -30,7 +30,7 @@ class View
     }
 
     /**
-     * Render a template
+     * Render a template, without a layout
      *
      * @param string        $template        The template path
      * @param string        $data            The template data
@@ -39,6 +39,12 @@ class View
      */
     public function render($template, array $data = array())
     {
-        return $this->controller->render($template, array_merge(self::$data, $data), true);
+        $template = trim($template);
+        $firstChar = $template{0};
+        if($firstChar != '/' && $firstChar != '@')
+        {
+            $template = '//' . $template;
+        }
+        return trim($this->controller->renderPartial($template, array_merge(self::$data, $data), true), "\n");
     }
 }
