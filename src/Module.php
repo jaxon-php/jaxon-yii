@@ -38,13 +38,6 @@ class Module extends \yii\base\Module
      */
     public function setup()
     {
-        // This function should be called only once
-        if(($this->setupCalled))
-        {
-            return;
-        }
-        $this->setupCalled = true;
-
         // initialize the module with the configuration loaded from config.php
         // \Yii::configure($this, require(__DIR__ . '/config.php'));
 
