@@ -4,7 +4,7 @@ namespace Jaxon\Yii;
 
 class Module extends \yii\base\Module
 {
-    use \Jaxon\Framework\JaxonTrait;
+    use \Jaxon\Framework\PluginTrait;
 
     /**
      * Create a new Jaxon instance.
@@ -13,10 +13,6 @@ class Module extends \yii\base\Module
      */
     public function __construct()
     {
-        // Initialise the properties inherited from JaxonTrait.
-        $this->jaxon = jaxon();
-        $this->response = new Response();
-        $this->view = new View();
         // Call the parent contructor after member initialisation
         parent::__construct('jaxon');
     }
@@ -28,7 +24,6 @@ class Module extends \yii\base\Module
      */
     public function init()
     {
-        $this->setup();
     }
 
     /**
@@ -38,6 +33,7 @@ class Module extends \yii\base\Module
      */
     public function setup()
     {
+        $this->view = new View();
         // initialize the module with the configuration loaded from config.php
         // \Yii::configure($this, require(__DIR__ . '/config.php'));
 
@@ -46,8 +42,6 @@ class Module extends \yii\base\Module
         $baseUrl = rtrim(\Yii::getAlias('@web'), '/') . '/';
         $baseDir = rtrim(\Yii::getAlias('@webroot'), '/') . '/';
 
-        // Use the Composer autoloader
-        $this->jaxon->useComposerAutoloader();
         // Jaxon library default options
         $this->jaxon->setOptions(array(
             'js.app.extern' => !$isDebug,
@@ -81,5 +75,23 @@ class Module extends \yii\base\Module
         }
         // Register the default Jaxon class directory
         $this->jaxon->addClassDir($controllerDir, $namespace, $excluded);
+    }
+
+    /**
+     * Wrap the Jaxon response into an HTTP response.
+     *
+     * @param  $code        The HTTP Response code
+     *
+     * @return HTTP Response
+     */
+    public function httpResponse($code = '200')
+    {
+        // Send HTTP Headers
+        $this->response->sendHeaders();
+        // Create and return a Yii HTTP response
+        // header('Content-Type: ' . $this->response->getContentType() . '; charset=' . $this->response->getCharacterEncoding());
+        Yii::$app->response->statusCode = $code;
+        Yii::$app->response->content = $this->response->getOutput();
+        return Yii::$app->response;
     }
 }
