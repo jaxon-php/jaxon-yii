@@ -87,9 +87,9 @@ class Module extends \yii\base\Module
     public function httpResponse($code = '200')
     {
         // Send HTTP Headers
-        $this->response->sendHeaders();
+        // $this->response->sendHeaders();
         // Create and return a Yii HTTP response
-        // header('Content-Type: ' . $this->response->getContentType() . '; charset=' . $this->response->getCharacterEncoding());
+        header('Content-Type: ' . $this->response->getContentType() . '; charset=' . $this->response->getCharacterEncoding());
         Yii::$app->response->statusCode = $code;
         Yii::$app->response->content = $this->response->getOutput();
         return Yii::$app->response;
