@@ -2,9 +2,12 @@
 
 return array(
     'app' => array(
-        // 'dir' => '',
-        // 'namespace' => '',
-        // 'excluded' => array(),
+        'controllers' => array(
+            // 'directory' => '',
+            // 'namespace' => '',
+            // 'separator' => '', // '.' or '_'
+            // 'protected' => array(),
+        ),
     ),
     'lib' => array(
         'core' => array(

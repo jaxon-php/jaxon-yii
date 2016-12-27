@@ -2,6 +2,8 @@
 
 namespace Jaxon\Yii;
 
+use Jaxon\Config\Php as Config;
+
 class Module extends \yii\base\Module
 {
     use \Jaxon\Module\Traits\Module;
@@ -31,50 +33,22 @@ class Module extends \yii\base\Module
      *
      * @return void
      */
-    protected function setup()
+    protected function jaxonSetup()
     {
         $isDebug = ((YII_ENV_DEV) ? true : false);
-        $appPath = rtrim(\Yii::getAlias('@app'), '/') . '/';
-        $baseUrl = rtrim(\Yii::getAlias('@web'), '/') . '/';
-        $baseDir = rtrim(\Yii::getAlias('@webroot'), '/') . '/';
+        $appPath = rtrim(\Yii::getAlias('@app'), '/');
+        $baseUrl = rtrim(\Yii::getAlias('@web'), '/');
+        $baseDir = rtrim(\Yii::getAlias('@webroot'), '/');
 
         // Read and set the config options from the config file
-        $jaxon = jaxon();
-        $this->appConfig = $jaxon->readConfigFile($appPath . 'config/jaxon.php', 'lib', 'app');
+        $this->appConfig = Config::read($appPath . '/config/jaxon.php', 'lib', 'app');
 
-        // Jaxon library settings
-        // Default values
-        if(!$jaxon->hasOption('js.app.extern'))
-        {
-            $jaxon->setOption('js.app.extern', !$isDebug);
-        }
-        if(!$jaxon->hasOption('js.app.minify'))
-        {
-            $jaxon->setOption('js.app.minify', !$isDebug);
-        }
-        if(!$jaxon->hasOption('js.app.uri'))
-        {
-            $jaxon->setOption('js.app.uri', $baseUrl . 'jaxon/js');
-        }
-        if(!$jaxon->hasOption('js.app.dir'))
-        {
-            $jaxon->setOption('js.app.dir', $baseDir . 'jaxon/js');
-        }
+        // Jaxon library default settings
+        $this->setLibraryOptions(!$isDebug, !$isDebug, $baseUrl . '/jaxon/js', $baseDir . '/jaxon/js');
 
-        // Jaxon application settings
-        // Default values
-        if(!$this->appConfig->hasOption('controllers.directory'))
-        {
-            $this->appConfig->setOption('controllers.directory', $appPath . 'jaxon/Controllers');
-        }
-        if(!$this->appConfig->hasOption('controllers.namespace'))
-        {
-            $this->appConfig->setOption('controllers.namespace', '\\Jaxon\\App');
-        }
-        if(!$this->appConfig->hasOption('controllers.protected') || !is_array($this->appConfig->getOption('protected')))
-        {
-            $this->appConfig->setOption('controllers.protected', array());
-        }
+        // Jaxon application default settings
+        $this->setApplicationOptions($appPath . '/jaxon/controllers', '\\Jaxon\\App');
+
         // Jaxon controller class
         $this->setControllerClass('\\Jaxon\\Yii\\Controller');
     }
@@ -86,7 +60,7 @@ class Module extends \yii\base\Module
      *
      * @return void
      */
-    protected function check()
+    protected function jaxonCheck()
     {
         // Todo: check the mandatory options
     }
@@ -96,13 +70,13 @@ class Module extends \yii\base\Module
      *
      * @return void
      */
-    protected function view()
+    protected function jaxonView()
     {
-        if($this->viewRenderer == null)
+        if($this->jaxonViewRenderer == null)
         {
-            $this->viewRenderer = new View();
+            $this->jaxonViewRenderer = new View();
         }
-        return $this->viewRenderer;
+        return $this->jaxonViewRenderer;
     }
 
     /**
