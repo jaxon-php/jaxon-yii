@@ -44,9 +44,10 @@ The following options can be defined in the `app` section of the config file.
 
 | Name | Default value | Description |
 |------|---------------|-------------|
-| dir | @app/jaxon | The directory of the Jaxon classes |
-| namespace | \Jaxon\App | The namespace of the Jaxon classes |
-| excluded | empty array | Prevent Jaxon from exporting some methods |
+| controllers.directory | @app/jaxon/controllers  | The directory of the Jaxon classes |
+| controllers.namespace | \Jaxon\App  | The namespace of the Jaxon classes |
+| controllers.separator | .           | The separator in Jaxon class names |
+| controllers.protected | empty array | Prevent Jaxon from exporting some methods |
 | | | |
 
 Usage
@@ -83,12 +84,13 @@ Then it calls the `$jaxon->css()`, `$jaxon->js()` and `$jaxon->script()` functio
 
 ### The Jaxon classes
 
-The Jaxon classes must inherit from `\Jaxon\Framework\Controller`.
-They must all be located in the directory indicated by the `app.dir` option in the `jaxon.php` config file, by default `@app/jaxon`.
+The Jaxon classes must inherit from `\Jaxon\Yii\Controller`.
+
+They must all be located in the directory indicated by the `app.controllers.directory` option in the `jaxon.php` config file, by default `@app/jaxon`.
 If there is a namespace associated, the `app.namespace` option should be set accordingly.
 The `app.namespace` option must be explicitely set to `null`, `false` or an empty string if there is no namespace.
 
-By default, the Jaxon classes are located in the `@app/jaxon` dir of the Yii application, and the associated namespace is `\Jaxon\App`.
+By default, the Jaxon classes are located in the `@app/jaxon/controllers` dir of the Yii application, and the associated namespace is `\Jaxon\App`.
 
 This is a simple example of a Jaxon class, located at `@app/jaxon/HelloWorld.php`.
 
@@ -114,4 +116,4 @@ Contribute
 License
 -------
 
-The project is licensed under the BSD license.
+The package is licensed under the BSD license.
