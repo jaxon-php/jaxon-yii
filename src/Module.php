@@ -9,6 +9,20 @@ class Module extends \yii\base\Module
     use \Jaxon\Module\Traits\Module;
 
     /**
+     * Default route for this package
+     *
+     * @var string
+     */
+    public $defaultRoute = 'jaxon';
+
+    /**
+     * Namespace of the controllers in this package
+     *
+     * @var string
+     */
+    public $controllerNamespace = 'Jaxon\\Yii\\Controllers';
+
+    /**
      * Create a new Jaxon instance.
      *
      * @return void

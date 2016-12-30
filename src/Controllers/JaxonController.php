@@ -1,8 +1,8 @@
 <?php
 
-namespace app\modules\jaxon\controllers;
+namespace Jaxon\Yii\Controllers;
 
-use yii\web\Controller;
+use yii\web\Controller, Yii;
 
 class JaxonController extends Controller
 {
