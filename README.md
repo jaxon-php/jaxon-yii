@@ -31,7 +31,7 @@ Declare the Jaxon module in the `config/web.php` file.
 Configuration
 ------------
 
-The settings in the jaxon.php config file are separated into two sections.
+The Jaxon library settings are defined in the `@app/config/jaxon.php` file, and separated into two sections.
 The options in the `lib` section are those of the Jaxon core library, while the options in the `app` sections are those of the Yii application.
 
 The following options can be defined in the `app` section of the config file.
