@@ -15,7 +15,7 @@ Installation
 Add the following lines in the `composer.json` file, and run the `composer update` command.
 ```json
 "require": {
-    "jaxon-php/jaxon-yii": "2.0.*"
+    "jaxon-php/jaxon-yii": "~2.0"
 }
 ```
 
