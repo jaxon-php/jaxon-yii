@@ -65,6 +65,11 @@ class Module extends \yii\base\Module
 
         // Jaxon controller class
         $this->setControllerClass('\\Jaxon\\Yii\\Controller');
+
+        // Set the view
+        $this->setJaxonView(function(){
+            return new View();
+        });
     }
 
     /**
@@ -77,20 +82,6 @@ class Module extends \yii\base\Module
     protected function jaxonCheck()
     {
         // Todo: check the mandatory options
-    }
-
-    /**
-     * Return the view renderer.
-     *
-     * @return void
-     */
-    protected function jaxonView()
-    {
-        if($this->jaxonViewRenderer == null)
-        {
-            $this->jaxonViewRenderer = new View();
-        }
-        return $this->jaxonViewRenderer;
     }
 
     /**
