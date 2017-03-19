@@ -17,6 +17,28 @@ class Session
     }
 
     /**
+     * Get the current session id
+     * 
+     * @return string           The session id
+     */
+    public function getId()
+    {
+        return $this->xSession->getId();
+    }
+
+    /**
+     * Generate a new session id
+     * 
+     * @param bool          $bDeleteData         Whether to delete data from the previous session
+     * 
+     * @return void
+     */
+    public function newId($bDeleteData = false)
+    {
+        $this->xSession->regenerateID($bDeleteData);
+    }
+
+    /**
      * Save data in the session
      *
      * @param string        $sKey                The session key
@@ -51,6 +73,44 @@ class Session
      */
     public function get($sKey, $xDefault = null)
     {
-        return $this->has($sKey) ? $this->xSession->get($sKey) : $xDefault;
+        return $this->xSession->get($sKey, $xDefault);
+    }
+
+    /**
+     * Get all data in the session
+     * 
+     * @return array             An array of all data in the session
+     */
+    public function all()
+    {
+        $aSessionData = [];
+        $it = $this->xSession->getIterator();
+        foreach($it as $xData)
+        {
+            $aSessionData[$it->key()] = $it->current();
+        }
+        return $aSessionData;
+    }
+
+    /**
+     * Delete a session key and its data
+     *
+     * @param string        $sKey                The session key
+     * 
+     * @return void
+     */
+    public function delete($sKey)
+    {
+        $this->xSession->remove($sKey);
+    }
+
+    /**
+     * Delete all data in the session
+     * 
+     * @return void
+     */
+    public function clear()
+    {
+        $this->xSession->removeAll();
     }
 }
