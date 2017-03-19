@@ -63,9 +63,6 @@ class Module extends \yii\base\Module
         // Jaxon application default settings
         $this->setApplicationOptions($appPath . '/jaxon/controllers', '\\Jaxon\\App');
 
-        // Jaxon controller class
-        $this->setControllerClass('\\Jaxon\\Yii\\Controller');
-
         // Set the view
         $this->setJaxonView(function(){
             return new View();
