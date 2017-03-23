@@ -78,20 +78,20 @@ Then it calls the `$jaxon->css()`, `$jaxon->js()` and `$jaxon->script()` functio
 
 ### The Jaxon classes
 
-The Jaxon classes must inherit from `\Jaxon\Yii\Controller`.
+The Jaxon classes must inherit from `\Jaxon\Module\Controller`.
 
-They must all be located in the directory indicated by the `app.controllers.directory` option in the `jaxon.php` config file, by default `@app/jaxon`.
+They must all be located in the directory indicated by the `app.controllers.directory` option in the `jaxon.php` config file.
 If there is a namespace associated, the `app.namespace` option should be set accordingly.
 The `app.namespace` option must be explicitely set to `null`, `false` or an empty string if there is no namespace.
 
 By default, the Jaxon classes are located in the `@app/jaxon/controllers` dir of the Yii application, and the associated namespace is `\Jaxon\App`.
 
-This is a simple example of a Jaxon class, located at `@app/jaxon/HelloWorld.php`.
+This is an example of a Jaxon class, defined in the `@app/jaxon/controllers/HelloWorld.php` file.
 
 ```php
 namespace Jaxon\App;
 
-class HelloWorld extends \Jaxon\Framework\Controller
+class HelloWorld extends \Jaxon\Module\Controller
 {
     public function sayHello()
     {
@@ -100,6 +100,8 @@ class HelloWorld extends \Jaxon\Framework\Controller
     }
 }
 ```
+
+Check the [jaxon-examples](https://github.com/jaxon-php/jaxon-examples/tree/master/frameworks/yii) package for more examples.
 
 Contribute
 ----------
