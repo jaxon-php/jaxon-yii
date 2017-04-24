@@ -63,13 +63,17 @@ class Module extends \yii\base\Module
         // Jaxon application default settings
         $this->setApplicationOptions($appPath . '/jaxon/controllers', '\\Jaxon\\App');
 
-        // Set the view
-        $this->setJaxonView(function(){
+        // Set the default view namespace
+        $this->addViewNamespace('default', '', '', 'yii');
+        $this->appConfig->setOption('options.views.default', 'default');
+
+        // Add the view renderer
+        $this->addViewRenderer('yii', function(){
             return new View();
         });
 
-        // Set the session
-        $this->setJaxonSession(function(){
+        // Set the session manager
+        $this->setSessionManager(function(){
             return new Session();
         });
     }
