@@ -60,9 +60,6 @@ class Module extends \yii\base\Module
         // Jaxon library default settings
         $this->setLibraryOptions(!$isDebug, !$isDebug, $baseUrl . '/jaxon/js', $baseDir . '/jaxon/js');
 
-        // Jaxon application default settings
-        $this->setApplicationOptions($appPath . '/jaxon/controllers', '\\Jaxon\\App');
-
         // Set the default view namespace
         $this->addViewNamespace('default', '', '', 'yii');
         $this->appConfig->setOption('options.views.default', 'default');
@@ -100,7 +97,8 @@ class Module extends \yii\base\Module
     public function httpResponse($code = '200')
     {
         // Create and return a Yii HTTP response
-        header('Content-Type: ' . $this->jaxonResponse->getContentType() . '; charset=' . $this->jaxonResponse->getCharacterEncoding());
+        header('Content-Type: ' . $this->jaxonResponse->getContentType() .
+            '; charset=' . $this->jaxonResponse->getCharacterEncoding());
         \Yii::$app->response->statusCode = $code;
         \Yii::$app->response->content = $this->jaxonResponse->getOutput();
         return \Yii::$app->response;

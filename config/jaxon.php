@@ -3,10 +3,12 @@
 return array(
     'app' => array(
         'controllers' => array(
-            // 'directory' => '',
-            // 'namespace' => '',
-            // 'separator' => '', // '.' or '_'
-            // 'protected' => array(),
+            array(
+                'directory' => rtrim(\Yii::getAlias('@app'), '/') . '/jaxon/controllers',
+                'namespace' => '\\Jaxon\\App',
+                // 'separator' => '', // '.' or '_'
+                // 'protected' => array(),
+            ),
         ),
     ),
     'lib' => array(
