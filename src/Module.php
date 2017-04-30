@@ -6,7 +6,7 @@ use Jaxon\Config\Php as Config;
 
 class Module extends \yii\base\Module
 {
-    use \Jaxon\Module\Traits\Module;
+    use \Jaxon\Sentry\Traits\Armada;
 
     /**
      * Default route for this package
@@ -54,23 +54,25 @@ class Module extends \yii\base\Module
         $baseUrl = rtrim(\Yii::getAlias('@web'), '/');
         $baseDir = rtrim(\Yii::getAlias('@webroot'), '/');
 
+        $sentry = jaxon()->sentry();
+
         // Read and set the config options from the config file
         $this->appConfig = Config::read($appPath . '/config/jaxon.php', 'lib', 'app');
 
         // Jaxon library default settings
-        $this->setLibraryOptions(!$isDebug, !$isDebug, $baseUrl . '/jaxon/js', $baseDir . '/jaxon/js');
+        $sentry->setLibraryOptions(!$isDebug, !$isDebug, $baseUrl . '/jaxon/js', $baseDir . '/jaxon/js');
 
         // Set the default view namespace
-        $this->addViewNamespace('default', '', '', 'yii');
+        $sentry->addViewNamespace('default', '', '', 'yii');
         $this->appConfig->setOption('options.views.default', 'default');
 
         // Add the view renderer
-        $this->addViewRenderer('yii', function(){
+        $sentry->addViewRenderer('yii', function(){
             return new View();
         });
 
         // Set the session manager
-        $this->setSessionManager(function(){
+        $sentry->setSessionManager(function(){
             return new Session();
         });
     }
