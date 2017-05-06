@@ -99,10 +99,10 @@ class Module extends \yii\base\Module
     public function httpResponse($code = '200')
     {
         // Create and return a Yii HTTP response
-        header('Content-Type: ' . $this->jaxonResponse->getContentType() .
-            '; charset=' . $this->jaxonResponse->getCharacterEncoding());
+        header('Content-Type: ' . $this->ajaxResponse()->getContentType() .
+            '; charset=' . $this->ajaxResponse()->getCharacterEncoding());
         \Yii::$app->response->statusCode = $code;
-        \Yii::$app->response->content = $this->jaxonResponse->getOutput();
+        \Yii::$app->response->content = $this->ajaxResponse()->getOutput();
         return \Yii::$app->response;
     }
 }
