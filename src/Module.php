@@ -2,8 +2,6 @@
 
 namespace Jaxon\Yii;
 
-use Jaxon\Config\Php as Config;
-
 class Module extends \yii\base\Module
 {
     use \Jaxon\Sentry\Traits\Armada;
@@ -54,10 +52,11 @@ class Module extends \yii\base\Module
         $baseUrl = rtrim(\Yii::getAlias('@web'), '/');
         $baseDir = rtrim(\Yii::getAlias('@webroot'), '/');
 
-        $sentry = jaxon()->sentry();
+        $jaxon = jaxon();
+        $sentry = $jaxon->sentry();
 
         // Read and set the config options from the config file
-        $this->appConfig = Config::read($appPath . '/config/jaxon.php', 'lib', 'app');
+        $this->appConfig = $jaxon->readConfigFile($appPath . '/config/jaxon.php', 'lib', 'app');
 
         // Jaxon library default settings
         $sentry->setLibraryOptions(!$isDebug, !$isDebug, $baseUrl . '/jaxon/js', $baseDir . '/jaxon/js');
