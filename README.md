@@ -87,7 +87,7 @@ Then it calls the `$jaxon->css()`, `$jaxon->js()` and `$jaxon->script()` functio
 
 ### The Jaxon classes
 
-The Jaxon classes must inherit from `\Jaxon\Sentry\Classes\Armada`.
+The Jaxon classes must inherit from `\Jaxon\Sentry\Armada`.
 By default, they are located in the `@app/jaxon/classes` dir of the Yii application, and the associated namespace is `\Jaxon\App`.
 
 This is an example of a Jaxon class, defined in the `@app/jaxon/classes/HelloWorld.php` file.
@@ -95,7 +95,7 @@ This is an example of a Jaxon class, defined in the `@app/jaxon/classes/HelloWor
 ```php
 namespace Jaxon\App;
 
-class HelloWorld extends \Jaxon\Sentry\Classes\Armada
+class HelloWorld extends \Jaxon\Sentry\Armada
 {
     public function sayHello()
     {
