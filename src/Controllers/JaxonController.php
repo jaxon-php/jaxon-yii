@@ -2,7 +2,8 @@
 
 namespace Jaxon\Yii\Controllers;
 
-use yii\web\Controller, Yii;
+use yii\web\Controller;
+use Yii;
 
 class JaxonController extends Controller
 {

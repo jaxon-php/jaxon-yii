@@ -66,12 +66,12 @@ class Module extends \yii\base\Module
         $this->appConfig->setOption('options.views.default', 'default');
 
         // Add the view renderer
-        $sentry->addViewRenderer('yii', function(){
+        $sentry->addViewRenderer('yii', function () {
             return new View();
         });
 
         // Set the session manager
-        $sentry->setSessionManager(function(){
+        $sentry->setSessionManager(function () {
             return new Session();
         });
     }
