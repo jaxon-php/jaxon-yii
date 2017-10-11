@@ -9,7 +9,7 @@ class JaxonController extends Controller
 {
     /**
      * Callback for initializing a Jaxon class instance.
-     * 
+     *
      * This function is called anytime a Jaxon class is instanciated.
      *
      * @param object            $instance               The Jaxon class instance
@@ -47,7 +47,7 @@ class JaxonController extends Controller
 
     /**
      * Process a Jaxon request.
-     * 
+     *
      * The HTTP response is automatically sent back to the browser
      *
      * @return void
@@ -57,13 +57,13 @@ class JaxonController extends Controller
         // Process Jaxon request
         $jaxon = Yii::$app->getModule('jaxon');
 
-        $jaxon->onInit(function($instance){
+        $jaxon->onInit(function($instance) {
             $this->initInstance($instance);
         });
-        $jaxon->onBefore(function($instance, $method, &$bEndRequest){
+        $jaxon->onBefore(function($instance, $method, &$bEndRequest) {
             $this->beforeRequest($instance, $method, $bEndRequest);
         });
-        $jaxon->onAfter(function($instance, $method){
+        $jaxon->onAfter(function($instance, $method) {
             $this->afterRequest($instance, $method);
         });
 
