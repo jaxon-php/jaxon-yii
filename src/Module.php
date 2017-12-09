@@ -38,6 +38,8 @@ class Module extends \yii\base\Module
      */
     public function init()
     {
+        // Initialize the Jaxon plugin
+        $this->_jaxonSetup();
     }
 
     /**
