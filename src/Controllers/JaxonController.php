@@ -8,19 +8,6 @@ use Yii;
 class JaxonController extends Controller
 {
     /**
-     * Callback for initializing a Jaxon class instance.
-     *
-     * This function is called anytime a Jaxon class is instanciated.
-     *
-     * @param object            $instance               The Jaxon class instance
-     *
-     * @return void
-     */
-    public function initInstance($instance)
-    {
-    }
-
-    /**
      * Callback before processing a Jaxon request.
      *
      * @param object            $instance               The Jaxon class instance to call
@@ -57,19 +44,17 @@ class JaxonController extends Controller
         // Process Jaxon request
         $jaxon = Yii::$app->getModule('jaxon');
 
-        $jaxon->onInit(function ($instance) {
-            $this->initInstance($instance);
-        });
-        $jaxon->onBefore(function ($instance, $method, &$bEndRequest) {
+        $jaxon->callback()->before(function ($instance, $method, &$bEndRequest) {
             $this->beforeRequest($instance, $method, $bEndRequest);
         });
-        $jaxon->onAfter(function ($instance, $method) {
+        $jaxon->callback()->after(function ($instance, $method) {
             $this->afterRequest($instance, $method);
         });
 
         if($jaxon->canProcessRequest())
         {
             $jaxon->processRequest();
+            return $jaxon->httpResponse();
         }
     }
 }
