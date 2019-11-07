@@ -19,7 +19,7 @@ class JaxonController extends Controller
         // Process Jaxon request
         $jaxon = Yii::$app->getModule('jaxon');
 
-        $jaxon->callback()->before(function ($target, &$bEndRequest) use($jaxon) {
+        $jaxon->callback()->before(function ($target, &$bEndRequest) use ($jaxon) {
             /*
             if($target->isFunction())
             {
