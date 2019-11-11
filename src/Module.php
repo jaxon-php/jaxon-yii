@@ -70,22 +70,31 @@ class Module extends \yii\base\Module
             // ->uri($sUri)
             ->js(!$bIsDebug, $sJsUrl, $sJsDir, !$bIsDebug)
             ->run(false);
+
+        // Prevent the Jaxon library from sending the response or exiting
+        $jaxon->setOption('core.response.send', false);
+        $jaxon->setOption('core.process.exit', false);
     }
 
     /**
-     * Wrap the Jaxon response into an HTTP response.
+     * Process an incoming Jaxon request, and return the response.
      *
-     * @param  $code        The HTTP Response code
-     *
-     * @return HTTP Response
+     * @return mixed
      */
-    public function httpResponse($code = '200')
+    public function processRequest()
     {
+        $jaxon = jaxon();
+        // Process the jaxon request
+        $jaxon->processRequest();
+        // Get the reponse to the request
+        $jaxonResponse = $jaxon->di()->getResponseManager()->getResponse();
+
         // Create and return a Yii HTTP response
-        header('Content-Type: ' . $this->ajaxResponse()->getContentType() .
-            '; charset=' . $this->ajaxResponse()->getCharacterEncoding());
+        $code = '200';
+        header('Content-Type: ' . $jaxonResponse->getContentType() .
+            '; charset=' . $jaxonResponse->getCharacterEncoding());
         \Yii::$app->response->statusCode = $code;
-        \Yii::$app->response->content = $this->ajaxResponse()->getOutput();
+        \Yii::$app->response->content = $jaxonResponse->getOutput();
         return \Yii::$app->response;
     }
 }
