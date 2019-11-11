@@ -2,7 +2,9 @@
 
 namespace Jaxon\Yii;
 
-class Session
+use Jaxon\Contracts\Session as SessionContract;
+
+class Session implements SessionContract
 {
     /**
      * The Yii session manager

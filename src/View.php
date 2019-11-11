@@ -2,16 +2,16 @@
 
 namespace Jaxon\Yii;
 
-use Jaxon\Sentry\View\Store;
-use Jaxon\Sentry\Interfaces\View as ViewInterface;
+use Jaxon\Utils\View\Store;
+use Jaxon\Contracts\View as ViewContract;
 
-class View implements ViewInterface
+class View implements ViewContract
 {
-    protected $controller;
+    protected $xController;
 
     public function __construct()
     {
-        $this->controller = \Yii::$app->controller;
+        $this->xController = \Yii::$app->controller;
     }
 
     /**
@@ -42,6 +42,6 @@ class View implements ViewInterface
         {
             $sViewPath = '//' . $sViewPath;
         }
-        return trim($this->controller->renderPartial($sViewPath, $store->getViewData(), true), " \t\n");
+        return trim($this->xController->renderPartial($sViewPath, $store->getViewData(), true), " \t\n");
     }
 }
