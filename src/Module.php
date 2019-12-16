@@ -2,6 +2,8 @@
 
 namespace Jaxon\Yii;
 
+use Yii;
+
 class Module extends \yii\base\Module
 {
     use \Jaxon\Features\App;
@@ -39,9 +41,9 @@ class Module extends \yii\base\Module
     public function init()
     {
         $bIsDebug = ((YII_ENV_DEV) ? true : false);
-        $sAppPath = rtrim(\Yii::getAlias('@app'), '/');
-        $sJsUrl = rtrim(\Yii::getAlias('@web'), '/') . '/jaxon/js';
-        $sJsDir = rtrim(\Yii::getAlias('@webroot'), '/') . '/jaxon/js';
+        $sAppPath = rtrim(Yii::getAlias('@app'), '/');
+        $sJsUrl = rtrim(Yii::getAlias('@web'), '/') . '/jaxon/js';
+        $sJsDir = rtrim(Yii::getAlias('@webroot'), '/') . '/jaxon/js';
 
         $jaxon = jaxon();
         $di = $jaxon->di();
@@ -51,18 +53,21 @@ class Module extends \yii\base\Module
         $aLibOptions = key_exists('lib', $aOptions) ? $aOptions['lib'] : [];
         $aAppOptions = key_exists('app', $aOptions) ? $aOptions['app'] : [];
 
-        $viewManager = $di->getViewmanager();
+        $viewManager = $di->getViewManager();
         // Set the default view namespace
         $viewManager->addNamespace('default', '', '', 'yii');
         // Add the view renderer
-        $viewManager->addRenderer('yii', function () {
+        $viewManager->addRenderer('yii', function() {
             return new View();
         });
 
         // Set the session manager
-        $di->setSessionManager(function () {
+        $di->setSessionManager(function() {
             return new Session();
         });
+
+        // Set the framework service container wrapper
+        $di->setAppContainer(new Container());
 
         $this->bootstrap()
             ->lib($aLibOptions)
@@ -77,24 +82,41 @@ class Module extends \yii\base\Module
     }
 
     /**
+     * Get the HTTP response
+     *
+     * @param string    $code       The HTTP response code
+     *
+     * @return mixed
+     */
+    public function httpResponse($code = '200')
+    {
+        $jaxon = jaxon();
+        // Get the reponse to the request
+        $jaxonResponse = $jaxon->di()->getResponseManager()->getResponse();
+        if(!$jaxonResponse)
+        {
+            $jaxonResponse = $jaxon->getResponse();
+        }
+
+        // Create and return a Yii HTTP response
+        header('Content-Type: ' . $jaxonResponse->getContentType() .
+            '; charset=' . $jaxonResponse->getCharacterEncoding());
+        Yii::$app->response->statusCode = $code;
+        Yii::$app->response->content = $jaxonResponse->getOutput();
+        return Yii::$app->response;
+    }
+
+    /**
      * Process an incoming Jaxon request, and return the response.
      *
      * @return mixed
      */
     public function processRequest()
     {
-        $jaxon = jaxon();
         // Process the jaxon request
-        $jaxon->processRequest();
-        // Get the reponse to the request
-        $jaxonResponse = $jaxon->di()->getResponseManager()->getResponse();
+        jaxon()->processRequest();
 
-        // Create and return a Yii HTTP response
-        $code = '200';
-        header('Content-Type: ' . $jaxonResponse->getContentType() .
-            '; charset=' . $jaxonResponse->getCharacterEncoding());
-        \Yii::$app->response->statusCode = $code;
-        \Yii::$app->response->content = $jaxonResponse->getOutput();
-        return \Yii::$app->response;
+        // Return the reponse to the request
+        return $this->httpResponse();
     }
 }
