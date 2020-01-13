@@ -67,6 +67,9 @@ class Module extends \yii\base\Module
             return new Session();
         });
 
+        // Set the framework service container wrapper
+        $di->setAppContainer(new Container());
+
         // Set the logger
         $this->setLogger(new Logger());
 

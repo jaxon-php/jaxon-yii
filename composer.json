@@ -13,7 +13,9 @@
         "source": "https://github.com/jaxon-php/jaxon-yii"
     },
     "require": {
-        "jaxon-php/jaxon-core": "^3.0"
+        "psr/log": ">=1.0.0",
+        "psr/container": ">=1.0.0",
+        "jaxon-php/jaxon-core": "^3.2"
     },
     "autoload": {
         "psr-4": {
