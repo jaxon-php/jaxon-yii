@@ -3,6 +3,7 @@
 namespace Jaxon\Yii;
 
 use Yii;
+use yii\web\Response;
 
 class Module extends \yii\base\Module
 {
@@ -66,8 +67,8 @@ class Module extends \yii\base\Module
             return new Session();
         });
 
-        // Set the framework service container wrapper
-        $di->setAppContainer(new Container());
+        // Set the logger
+        $this->setLogger(new Logger());
 
         $this->bootstrap()
             ->lib($aLibOptions)
@@ -101,6 +102,7 @@ class Module extends \yii\base\Module
         // Create and return a Yii HTTP response
         header('Content-Type: ' . $jaxonResponse->getContentType() .
             '; charset=' . $jaxonResponse->getCharacterEncoding());
+        Yii::$app->response->format = Response::FORMAT_JSON;
         Yii::$app->response->statusCode = $code;
         Yii::$app->response->content = $jaxonResponse->getOutput();
         return Yii::$app->response;
