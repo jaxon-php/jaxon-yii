@@ -89,7 +89,7 @@ class Module extends \yii\base\Module
 
         // Create and return a Yii HTTP response
         header('Content-Type: ' . $jaxonResponse->getContentType() .
-            '; charset=' . $this->jaxon->getCharacterEncoding());
+            '; charset=' . $this->getCharacterEncoding());
         Yii::$app->response->format = Response::FORMAT_JSON;
         Yii::$app->response->statusCode = $sCode;
         Yii::$app->response->content = $jaxonResponse->getOutput();
