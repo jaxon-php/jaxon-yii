@@ -5,13 +5,17 @@ namespace Jaxon\Yii;
 use Jaxon\Utils\View\Store;
 use Jaxon\Contracts\View as ViewContract;
 
+use Yii;
+
+use function trim;
+
 class View implements ViewContract
 {
     protected $xController;
 
     public function __construct()
     {
-        $this->xController = \Yii::$app->controller;
+        $this->xController = Yii::$app->controller;
     }
 
     /**

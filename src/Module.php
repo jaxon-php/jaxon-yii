@@ -5,9 +5,13 @@ namespace Jaxon\Yii;
 use Yii;
 use yii\web\Response;
 
+use function rtrim;
+use function header;
+use function jaxon;
+
 class Module extends \yii\base\Module
 {
-    use \Jaxon\Features\App;
+    use \Jaxon\App\AppTrait;
 
     /**
      * Default route for this package
@@ -30,6 +34,7 @@ class Module extends \yii\base\Module
      */
     public function __construct()
     {
+        $this->jaxon = jaxon();
         // Call the parent contructor after member initialisation
         parent::__construct('jaxon');
     }
@@ -41,87 +46,53 @@ class Module extends \yii\base\Module
      */
     public function init()
     {
+        // Set the default view namespace
+        $this->addViewNamespace('default', '', '', 'yii');
+        // Add the view renderer
+        $this->addViewRenderer('yii', function() {
+            return new View();
+        });
+        // Set the session manager
+        $this->setSessionManager(function() {
+            return new Session();
+        });
+        // Set the framework service container wrapper
+        $this->setAppContainer(new Container());
+        // Set the logger
+        $this->setLogger(new Logger());
+
         $bIsDebug = ((YII_ENV_DEV) ? true : false);
         $sAppPath = rtrim(Yii::getAlias('@app'), '/');
         $sJsUrl = rtrim(Yii::getAlias('@web'), '/') . '/jaxon/js';
         $sJsDir = rtrim(Yii::getAlias('@webroot'), '/') . '/jaxon/js';
 
-        $jaxon = jaxon();
-        $di = $jaxon->di();
-
         // Read the config options.
-        $aOptions = $jaxon->config()->read($sAppPath . '/config/jaxon.php');
-        $aLibOptions = key_exists('lib', $aOptions) ? $aOptions['lib'] : [];
-        $aAppOptions = key_exists('app', $aOptions) ? $aOptions['app'] : [];
-
-        $viewManager = $di->getViewManager();
-        // Set the default view namespace
-        $viewManager->addNamespace('default', '', '', 'yii');
-        // Add the view renderer
-        $viewManager->addRenderer('yii', function() {
-            return new View();
-        });
-
-        // Set the session manager
-        $di->setSessionManager(function() {
-            return new Session();
-        });
-
-        // Set the framework service container wrapper
-        $di->setAppContainer(new Container());
-
-        // Set the logger
-        $this->setLogger(new Logger());
+        $aOptions = $this->jaxon->readConfig($sAppPath . '/config/jaxon.php');
+        $aLibOptions = $aOptions['lib'] ?? [];
+        $aAppOptions = $aOptions['app'] ?? [];
 
         $this->bootstrap()
             ->lib($aLibOptions)
             ->app($aAppOptions)
             // ->uri($sUri)
             ->js(!$bIsDebug, $sJsUrl, $sJsDir, !$bIsDebug)
-            ->run();
-
-        // Prevent the Jaxon library from sending the response or exiting
-        $jaxon->setOption('core.response.send', false);
-        $jaxon->setOption('core.process.exit', false);
+            ->setup();
     }
 
     /**
-     * Get the HTTP response
-     *
-     * @param string    $code       The HTTP response code
-     *
-     * @return mixed
+     * @inheritDoc
      */
-    public function httpResponse($code = '200')
+    public function httpResponse(string $sCode = '200')
     {
-        $jaxon = jaxon();
         // Get the reponse to the request
-        $jaxonResponse = $jaxon->di()->getResponseManager()->getResponse();
-        if(!$jaxonResponse)
-        {
-            $jaxonResponse = $jaxon->getResponse();
-        }
+        $jaxonResponse = $this->jaxon->getResponse();
 
         // Create and return a Yii HTTP response
         header('Content-Type: ' . $jaxonResponse->getContentType() .
-            '; charset=' . $jaxonResponse->getCharacterEncoding());
+            '; charset=' . $this->jaxon->getCharacterEncoding());
         Yii::$app->response->format = Response::FORMAT_JSON;
-        Yii::$app->response->statusCode = $code;
+        Yii::$app->response->statusCode = $sCode;
         Yii::$app->response->content = $jaxonResponse->getOutput();
         return Yii::$app->response;
-    }
-
-    /**
-     * Process an incoming Jaxon request, and return the response.
-     *
-     * @return mixed
-     */
-    public function processRequest()
-    {
-        // Process the jaxon request
-        jaxon()->processRequest();
-
-        // Return the reponse to the request
-        return $this->httpResponse();
     }
 }

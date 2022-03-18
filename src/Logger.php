@@ -13,7 +13,7 @@ class Logger extends AbstractLogger implements LoggerInterface
 {
     public function log($sLevel, $sMessage, array $aContext = [])
     {
-        $sMessage = rtrim((string)$sMessage, ' .') . '. Context: ' . print_r($aContext, true);
+        $sMessage = rtrim((string)$sMessage, ' .') . '. ' . json_encode($aContext);
 
         // Map the PSR-3 severity to CodeIgniter log level.
         switch($sLevel)
