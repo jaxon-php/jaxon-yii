@@ -74,8 +74,7 @@ class Module extends \yii\base\Module
         $this->bootstrap()
             ->lib($aLibOptions)
             ->app($aAppOptions)
-            // ->uri($sUri)
-            ->js(!$bIsDebug, $sJsUrl, $sJsDir, !$bIsDebug)
+            ->asset(!$bIsDebug, !$bIsDebug, $sJsUrl, $sJsDir)
             ->setup();
     }
 
@@ -88,8 +87,7 @@ class Module extends \yii\base\Module
         $jaxonResponse = $this->jaxon->getResponse();
 
         // Create and return a Yii HTTP response
-        header('Content-Type: ' . $jaxonResponse->getContentType() .
-            '; charset=' . $this->getCharacterEncoding());
+        header('Content-Type: ' . $this->getContentType());
         Yii::$app->response->format = Response::FORMAT_JSON;
         Yii::$app->response->statusCode = $sCode;
         Yii::$app->response->content = $jaxonResponse->getOutput();
