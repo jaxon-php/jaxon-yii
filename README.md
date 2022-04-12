@@ -86,7 +86,7 @@ Before it prints the page, the controller calls the `$jaxon->css()`, `$jaxon->js
 
 ### The Jaxon classes
 
-The Jaxon classes can inherit from `\Jaxon\CallableClass`.
+The Jaxon classes can inherit from `\Jaxon\App\CallableClass`.
 By default, they are located in the `@app/jaxon/classes` dir of the Yii application, and the associated namespace is `\Jaxon\App`.
 
 This is an example of a Jaxon class, defined in the `@app/jaxon/classes/HelloWorld.php` file.
@@ -94,7 +94,7 @@ This is an example of a Jaxon class, defined in the `@app/jaxon/classes/HelloWor
 ```php
 namespace Jaxon\App;
 
-class HelloWorld extends \Jaxon\CallableClass
+class HelloWorld extends \Jaxon\App\CallableClass
 {
     public function sayHello()
     {

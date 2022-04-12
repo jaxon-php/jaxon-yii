@@ -84,13 +84,13 @@ class Module extends \yii\base\Module
     public function httpResponse(string $sCode = '200')
     {
         // Get the reponse to the request
-        $jaxonResponse = $this->jaxon->getResponse();
+        $ajaxResponse = $this->ajaxResponse();
 
         // Create and return a Yii HTTP response
         header('Content-Type: ' . $this->getContentType());
         Yii::$app->response->format = Response::FORMAT_JSON;
         Yii::$app->response->statusCode = $sCode;
-        Yii::$app->response->content = $jaxonResponse->getOutput();
+        Yii::$app->response->content = $ajaxResponse->getOutput();
         return Yii::$app->response;
     }
 }
