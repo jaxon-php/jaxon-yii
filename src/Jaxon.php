@@ -1,50 +1,45 @@
 <?php
 
+/**
+ * Jaxon.php
+ *
+ * Jaxon app for Yii
+ *
+ * @package jaxon-core
+ * @author Thierry Feuzeu <thierry.feuzeu@gmail.com>
+ * @copyright 2022 Thierry Feuzeu <thierry.feuzeu@gmail.com>
+ * @license https://opensource.org/licenses/BSD-3-Clause BSD 3-Clause License
+ * @link https://github.com/jaxon-php/jaxon-core
+ */
+
 namespace Jaxon\Yii;
 
-use Yii;
+use Jaxon\App\AppInterface;
+use Jaxon\App\AppTrait;
+use Jaxon\Exception\SetupException;
 use yii\web\Response;
+use Yii;
 
-use function rtrim;
 use function header;
 use function jaxon;
 
-class Module extends \yii\base\Module
+class Jaxon implements AppInterface
 {
-    use \Jaxon\App\AppTrait;
+    use AppTrait;
 
     /**
-     * Default route for this package
-     *
-     * @var string
-     */
-    public $defaultRoute = 'jaxon';
-
-    /**
-     * Namespace of the controllers in this package
-     *
-     * @var string
-     */
-    public $controllerNamespace = 'Jaxon\\Yii\\Controllers';
-
-    /**
-     * Create a new Jaxon instance.
-     *
-     * @return void
+     * The class constructor
      */
     public function __construct()
     {
-        $this->jaxon = jaxon();
-        // Call the parent contructor after member initialisation
-        parent::__construct('jaxon');
+        $this->initApp(jaxon()->di());
     }
 
     /**
-     * Initialise the Jaxon module.
-     *
-     * @return void
+     * @inheritDoc
+     * @throws SetupException
      */
-    public function init()
+    public function setup(string $sConfigFile)
     {
         // Set the default view namespace
         $this->addViewNamespace('default', '', '', 'yii');
@@ -61,20 +56,19 @@ class Module extends \yii\base\Module
         // Set the logger
         $this->setLogger(new Logger());
 
-        $bIsDebug = ((YII_ENV_DEV) ? true : false);
-        $sAppPath = rtrim(Yii::getAlias('@app'), '/');
+        $bExport = $bMinify = (YII_DEBUG ? false : true);
         $sJsUrl = rtrim(Yii::getAlias('@web'), '/') . '/jaxon/js';
         $sJsDir = rtrim(Yii::getAlias('@webroot'), '/') . '/jaxon/js';
 
         // Read the config options.
-        $aOptions = $this->jaxon->readConfig($sAppPath . '/config/jaxon.php');
+        $aOptions = $this->config()->read($sConfigFile);
         $aLibOptions = $aOptions['lib'] ?? [];
         $aAppOptions = $aOptions['app'] ?? [];
 
         $this->bootstrap()
             ->lib($aLibOptions)
             ->app($aAppOptions)
-            ->asset(!$bIsDebug, !$bIsDebug, $sJsUrl, $sJsDir)
+            ->asset($bExport, $bMinify, $sJsUrl, $sJsDir)
             ->setup();
     }
 
@@ -83,14 +77,11 @@ class Module extends \yii\base\Module
      */
     public function httpResponse(string $sCode = '200')
     {
-        // Get the reponse to the request
-        $jaxonResponse = $this->jaxon->getResponse();
-
         // Create and return a Yii HTTP response
         header('Content-Type: ' . $this->getContentType());
         Yii::$app->response->format = Response::FORMAT_JSON;
-        Yii::$app->response->statusCode = $sCode;
-        Yii::$app->response->content = $jaxonResponse->getOutput();
+        Yii::$app->response->content = $this->ajaxResponse()->getOutput();
+
         return Yii::$app->response;
     }
 }

@@ -1,13 +1,8 @@
 Jaxon Library for Yii
 =============================
 
-This package integrates the [Jaxon library](https://github.com/jaxon-php/jaxon-core) into the Yii 2 framework.
-
-Features
---------
-
-- Automatically register Jaxon classes from a preset directory.
-- Read Jaxon options from a config file.
+This package integrates the [Jaxon library](https://github.com/jaxon-php/jaxon-core) into the Yii framework.
+It requires the version 2.0.11 or newer.
 
 Installation
 ------------
@@ -70,14 +65,13 @@ class DemoController extends Controller
         // Set the layout
         $this->layout = 'demo';
         // Get the Jaxon module
-        $jaxon = Yii::$app->getModule('jaxon');
-        $jaxon->register();
+        $jaxon = jaxon()->app();
 
-        return $this->render('index', array(
+        return $this->render('index', [
             'jaxonCss' => $jaxon->css(),
             'jaxonJs' => $jaxon->js(),
             'jaxonScript' => $jaxon->script()
-        ));
+        ]);
     }
 }
 ```
@@ -86,7 +80,7 @@ Before it prints the page, the controller calls the `$jaxon->css()`, `$jaxon->js
 
 ### The Jaxon classes
 
-The Jaxon classes can inherit from `\Jaxon\CallableClass`.
+The Jaxon classes can inherit from `\Jaxon\App\CallableClass`.
 By default, they are located in the `@app/jaxon/classes` dir of the Yii application, and the associated namespace is `\Jaxon\App`.
 
 This is an example of a Jaxon class, defined in the `@app/jaxon/classes/HelloWorld.php` file.
@@ -94,7 +88,7 @@ This is an example of a Jaxon class, defined in the `@app/jaxon/classes/HelloWor
 ```php
 namespace Jaxon\App;
 
-class HelloWorld extends \Jaxon\CallableClass
+class HelloWorld extends \Jaxon\App\CallableClass
 {
     public function sayHello()
     {

@@ -2,17 +2,23 @@
 
 namespace Jaxon\Yii;
 
-use Jaxon\Utils\View\Store;
-use Jaxon\Contracts\View as ViewContract;
+use Jaxon\App\View\Store;
+use Jaxon\App\View\ViewInterface;
 
 use Yii;
 
 use function trim;
 
-class View implements ViewContract
+class View implements ViewInterface
 {
+    /**
+     * @var mixed The Yii controller
+     */
     protected $xController;
 
+    /**
+     * The constructor
+     */
     public function __construct()
     {
         $this->xController = Yii::$app->controller;
@@ -27,7 +33,7 @@ class View implements ViewContract
      *
      * @return void
      */
-    public function addNamespace($sNamespace, $sDirectory, $sExtension = '')
+    public function addNamespace(string $sNamespace, string $sDirectory, string $sExtension = '')
     {}
 
     /**
@@ -35,9 +41,9 @@ class View implements ViewContract
      *
      * @param Store         $store        A store populated with the view data
      *
-     * @return string        The string representation of the view
+     * @return string
      */
-    public function render(Store $store)
+    public function render(Store $store): string
     {
         // Render the template
         $sViewPath = $store->getViewName();

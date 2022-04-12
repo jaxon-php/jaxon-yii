@@ -12,33 +12,32 @@
 
 namespace Jaxon\Yii;
 
-use Yii;
-
 use Psr\Container\ContainerInterface;
+use Yii;
 
 class Container implements ContainerInterface
 {
     /**
      * Check if a given class is defined in the container
      *
-     * @param string                $sClass             A full class name
+     * @param string $id             A full class name
      *
      * @return bool
      */
-    public function has($sClass)
+    public function has(string $id)
     {
-        return Yii::$container->has($sClass);
+        return Yii::$container->has($id);
     }
 
     /**
      * Get a class instance
      *
-     * @param string                $sClass             A full class name
+     * @param string $id             A full class name
      *
      * @return mixed                The class instance
      */
-    public function get($sClass)
+    public function get(string $id)
     {
-        return Yii::$container->get($sClass);
+        return Yii::$container->get($id);
     }
 }

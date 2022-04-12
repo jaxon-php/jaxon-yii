@@ -13,13 +13,14 @@
         "source": "https://github.com/jaxon-php/jaxon-yii"
     },
     "require": {
-        "psr/log": ">=1.0.0",
-        "psr/container": ">=1.0.0",
+        "yiisoft/yii2": "~2.0.14",
         "jaxon-php/jaxon-core": "^4.0"
     },
     "autoload": {
         "psr-4": {
             "Jaxon\\Yii\\": "src/"
         }
-    }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }

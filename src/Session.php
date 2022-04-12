@@ -3,6 +3,7 @@
 namespace Jaxon\Yii;
 
 use Jaxon\App\Session\SessionInterface;
+use Yii;
 
 class Session implements SessionInterface
 {
@@ -15,7 +16,7 @@ class Session implements SessionInterface
 
     public function __construct()
     {
-        $this->xSession = \Yii::$app->session;
+        $this->xSession = Yii::$app->session;
     }
 
     /**
@@ -31,11 +32,11 @@ class Session implements SessionInterface
     /**
      * Generate a new session id
      *
-     * @param bool          $bDeleteData         Whether to delete data from the previous session
+     * @param bool $bDeleteData         Whether to delete data from the previous session
      *
      * @return void
      */
-    public function newId($bDeleteData = false)
+    public function newId(bool $bDeleteData = false)
     {
         $this->xSession->regenerateID($bDeleteData);
     }
@@ -44,11 +45,11 @@ class Session implements SessionInterface
      * Save data in the session
      *
      * @param string        $sKey                The session key
-     * @param string        $xValue              The session value
+     * @param mixed        $xValue              The session value
      *
      * @return void
      */
-    public function set($sKey, $xValue)
+    public function set(string $sKey, $xValue)
     {
         $this->xSession->set($sKey, $xValue);
     }
@@ -60,7 +61,7 @@ class Session implements SessionInterface
      *
      * @return bool             True if the session key exists, else false
      */
-    public function has($sKey): bool
+    public function has(string $sKey): bool
     {
         return $this->xSession->has($sKey);
     }
@@ -69,11 +70,11 @@ class Session implements SessionInterface
      * Get data from the session
      *
      * @param string        $sKey                The session key
-     * @param string        $xDefault            The default value
+     * @param mixed        $xDefault            The default value
      *
      * @return mixed|$xDefault             The data under the session key, or the $xDefault parameter
      */
-    public function get($sKey, $xDefault = null)
+    public function get(string $sKey, $xDefault = null)
     {
         return $this->xSession->get($sKey, $xDefault);
     }
@@ -101,7 +102,7 @@ class Session implements SessionInterface
      *
      * @return void
      */
-    public function delete($sKey)
+    public function delete(string $sKey)
     {
         $this->xSession->remove($sKey);
     }
