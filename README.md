@@ -48,7 +48,7 @@ class DemoController extends Controller
         $jaxon = jaxon()->app();
         if(!$jaxon->canProcessRequest())
         {
-            // Jaxon failed to find a plugin to process the request 
+            // Jaxon failed to find a plugin to process the request
             return; // Todo: return an error message
         }
 
