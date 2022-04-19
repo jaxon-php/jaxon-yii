@@ -15,7 +15,7 @@
 namespace Jaxon\Yii;
 
 use Jaxon\App\AppInterface;
-use Jaxon\App\AppTrait;
+use Jaxon\App\Traits\AppTrait;
 use Jaxon\Exception\SetupException;
 use yii\web\Response;
 use Yii;

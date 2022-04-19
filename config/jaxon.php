@@ -3,8 +3,8 @@
 return [
     'app' => [
         'directories' => [
-            rtrim(\Yii::getAlias('@app'), '/') . '/jaxon/classes' => [
-                'namespace' => '\\Jaxon\\App',
+            rtrim(\Yii::getAlias('@app'), '/') . '/jaxon/ajax' => [
+                'namespace' => '\\Jaxon\\Ajax',
                 // 'separator' => '', // '.' or '_'
                 // 'protected' => [],
             ],

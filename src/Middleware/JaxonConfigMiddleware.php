@@ -1,7 +1,7 @@
 <?php
 
 /**
- * ConfigMiddleware.php
+ * JaxonConfigMiddleware.php
  *
  * Middleware to load Jaxon config.
  *
@@ -26,7 +26,7 @@ use Yii;
 use function jaxon;
 use function rtrim;
 
-class ConfigMiddleware implements MiddlewareInterface
+class JaxonConfigMiddleware implements MiddlewareInterface
 {
     /**
      * @inheritDoc

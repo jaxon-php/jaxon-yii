@@ -1,7 +1,7 @@
 <?php
 
 /**
- * AjaxMiddleware.php
+ * JaxonAjaxMiddleware.php
  *
  * Middleware to process Jaxon ajax request.
  *
@@ -18,7 +18,7 @@ use Jaxon\Request\Handler\Psr\PsrAjaxMiddleware;
 
 use function jaxon;
 
-class AjaxMiddleware extends PsrAjaxMiddleware
+class JaxonAjaxMiddleware extends PsrAjaxMiddleware
 {
     /**
      * The constructor

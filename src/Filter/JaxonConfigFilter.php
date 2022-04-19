@@ -1,7 +1,7 @@
 <?php
 
 /**
- * ConfigFilter.php
+ * JaxonConfigFilter.php
  *
  * Yii filter to load Jaxon config.
  *
@@ -23,7 +23,7 @@ use Yii;
 use function jaxon;
 use function rtrim;
 
-class ConfigFilter extends ActionFilter
+class JaxonConfigFilter extends ActionFilter
 {
     /**
      * @inheritDoc
