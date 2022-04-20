@@ -22,6 +22,7 @@ use Yii;
 
 use function header;
 use function jaxon;
+use function rtrim;
 
 class Jaxon implements AppInterface
 {
@@ -41,10 +42,8 @@ class Jaxon implements AppInterface
      */
     public function setup(string $sConfigFile)
     {
-        // Set the default view namespace
-        $this->addViewNamespace('default', '', '', 'yii');
         // Add the view renderer
-        $this->addViewRenderer('yii', function() {
+        $this->addViewRenderer('yii', '', function() {
             return new View();
         });
         // Set the session manager

@@ -7,14 +7,14 @@
     ],
     "homepage": "https://github.com/jaxon-php/jaxon-yii",
     "license": "BSD-3-Clause",
-    "keywords": ["Jaxon", "Xajax", "Ajax", "PHP", "Framework", "Yii"],
+    "keywords": ["Jaxon", "Ajax", "PHP", "Yii"],
     "support": {
         "issues": "https://github.com/jaxon-php/jaxon-yii/issues",
         "source": "https://github.com/jaxon-php/jaxon-yii"
     },
     "require": {
-        "yiisoft/yii2": "~2.0.14",
-        "jaxon-php/jaxon-core": "^4.0"
+        "jaxon-php/jaxon-core": "^4.0",
+        "yiisoft/yii2": "~2.0.14"
     },
     "autoload": {
         "psr-4": {
