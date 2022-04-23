@@ -1,5 +1,5 @@
-Jaxon Library for Yii
-=============================
+Jaxon integration for the Yii framework
+=======================================
 
 This package integrates the [Jaxon library](https://github.com/jaxon-php/jaxon-core) into the Yii framework.
 It requires the version 2.0.11 or newer.
