@@ -23,7 +23,7 @@ use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Yii;
 
-use function jaxon;
+use function Jaxon\jaxon;
 use function rtrim;
 
 class JaxonConfigMiddleware implements MiddlewareInterface

@@ -16,7 +16,7 @@ namespace Jaxon\Yii\Middleware;
 
 use Jaxon\Request\Handler\Psr\PsrAjaxMiddleware;
 
-use function jaxon;
+use function Jaxon\jaxon;
 
 class JaxonAjaxMiddleware extends PsrAjaxMiddleware
 {

@@ -20,7 +20,7 @@ use Jaxon\Yii\Jaxon;
 use yii\base\ActionFilter;
 use Yii;
 
-use function jaxon;
+use function Jaxon\jaxon;
 use function rtrim;
 
 class JaxonConfigFilter extends ActionFilter

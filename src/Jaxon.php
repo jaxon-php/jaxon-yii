@@ -21,7 +21,7 @@ use yii\web\Response;
 use Yii;
 
 use function header;
-use function jaxon;
+use function Jaxon\jaxon;
 use function rtrim;
 
 class Jaxon implements AppInterface
