@@ -4,7 +4,6 @@ namespace Jaxon\Yii;
 
 use Jaxon\App\View\Store;
 use Jaxon\App\View\ViewInterface;
-
 use Yii;
 
 use function trim;
@@ -47,7 +46,7 @@ class View implements ViewInterface
     {
         // Render the template
         $sViewPath = $store->getViewName();
-        $firstChar = $sViewPath{0};
+        $firstChar = $sViewPath[0];
         if($firstChar != '/' && $firstChar != '@')
         {
             $sViewPath = '//' . $sViewPath;
