@@ -14,28 +14,16 @@
 
 namespace Jaxon\Yii;
 
-use Jaxon\App\AppInterface;
-use Jaxon\App\Traits\AppTrait;
+use Jaxon\App\AbstractApp;
 use Jaxon\Exception\SetupException;
 use yii\web\Response;
 use Yii;
 
 use function header;
-use function Jaxon\jaxon;
 use function rtrim;
 
-class Jaxon implements AppInterface
+class Jaxon extends AbstractApp
 {
-    use AppTrait;
-
-    /**
-     * The class constructor
-     */
-    public function __construct()
-    {
-        $this->initApp(jaxon()->di());
-    }
-
     /**
      * @inheritDoc
      * @throws SetupException
