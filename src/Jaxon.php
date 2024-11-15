@@ -40,7 +40,7 @@ class Jaxon implements AppInterface
      * @inheritDoc
      * @throws SetupException
      */
-    public function setup(string $sConfigFile)
+    public function setup(string $sConfigFile = '')
     {
         // Add the view renderer
         $this->addViewRenderer('yii', '', function() {
