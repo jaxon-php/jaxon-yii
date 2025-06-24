@@ -14,7 +14,7 @@
 
 namespace Jaxon\Yii\Filter;
 
-use Jaxon\App\AppInterface;
+use Jaxon\App\Ajax\AppInterface;
 use Jaxon\Exception\SetupException;
 use Jaxon\Yii\Jaxon;
 use yii\base\ActionFilter;

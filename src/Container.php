@@ -24,7 +24,7 @@ class Container implements ContainerInterface
      *
      * @return bool
      */
-    public function has(string $id)
+    public function has(string $id): bool
     {
         return Yii::$container->has($id);
     }

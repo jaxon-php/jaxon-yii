@@ -14,7 +14,7 @@
 
 namespace Jaxon\Yii;
 
-use Jaxon\App\AppInterface;
+use Jaxon\App\Ajax\AppInterface;
 use Jaxon\App\Traits\AppTrait;
 use Jaxon\Exception\SetupException;
 use yii\web\Response;
@@ -40,7 +40,7 @@ class Jaxon implements AppInterface
      * @inheritDoc
      * @throws SetupException
      */
-    public function setup(string $sConfigFile = '')
+    public function setup(string $sConfigFile = ''): void
     {
         // Add the view renderer
         $this->addViewRenderer('yii', '', function() {
@@ -74,7 +74,7 @@ class Jaxon implements AppInterface
     /**
      * @inheritDoc
      */
-    public function httpResponse(string $sCode = '200')
+    public function httpResponse(string $sCode = '200'): mixed
     {
         // Create and return a Yii HTTP response
         header('Content-Type: ' . $this->getContentType());

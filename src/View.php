@@ -4,9 +4,9 @@ namespace Jaxon\Yii;
 
 use Jaxon\App\View\Store;
 use Jaxon\App\View\ViewInterface;
-
 use Yii;
 
+use function substr;
 use function trim;
 
 class View implements ViewInterface
@@ -47,11 +47,12 @@ class View implements ViewInterface
     {
         // Render the template
         $sViewPath = $store->getViewName();
-        $firstChar = $sViewPath{0};
-        if($firstChar != '/' && $firstChar != '@')
+        $firstChar = substr($sViewPath, 0, 1);
+        if($firstChar !== '/' && $firstChar !== '@')
         {
             $sViewPath = '//' . $sViewPath;
         }
-        return trim($this->xController->renderPartial($sViewPath, $store->getViewData(), true), " \t\n");
+        return trim($this->xController
+            ->renderPartial($sViewPath, $store->getViewData(), true), " \t\n");
     }
 }
